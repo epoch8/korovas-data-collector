@@ -1,6 +1,6 @@
 {
-  "id": "korovas",
-  "name": "Хозяйство",
+  "id": "krs-inference",
+  "name": "Бонитировка КРС",
   "version": "1.2",
   "config": {
     "flow": {
