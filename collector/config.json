@@ -1,25 +1,143 @@
 {
   "id": "test-krs",
   "name": "Коровы тест",
-  "version": "1",
+  "version": "1.0",
   "config": {
-    "fields": [
-      {
-        "field_id": "demo_text",
-        "type": "text_input",
-        "title": "Пример текста",
-        "instructions": "Заполните поле",
-        "validation": {}
-      }
-    ],
     "flow": {
       "steps": [
         {
-          "id": "form1",
+          "id": "animal_id",
           "screen": "scroll_form",
-          "form_title": "Сбор данных",
+          "form_title": "Идентификация животного",
+          "cow_id_hints": true,
+          "cow_id_field_id": "cow_identifier",
           "field_ids": [
-            "demo_text"
+            "scan_time",
+            "cow_name",
+            "cow_gender",
+            "cow_identifier"
+          ]
+        },
+        {
+          "id": "real_age",
+          "screen": "scroll_form",
+          "form_title": "Возраст",
+          "field_ids": [
+            "measurements_skip_hint",
+            "months"
+          ]
+        },
+        {
+          "id": "real_quantitative",
+          "screen": "scroll_form",
+          "form_title": "Количественные замеры",
+          "field_ids": [
+            "weight_real",
+            "height_at_croup_real",
+            "height_at_withers_real",
+            "chest_depth_real",
+            "chest_width_behind_shoulders_real",
+            "width_at_hook_bones_real",
+            "width_at_pin_bones_real",
+            "body_length_oblique_real",
+            "rump_length_oblique_real",
+            "chest_girth_real",
+            "pastern_girth_real",
+            "rump_half_girth_real",
+            "head_length_real",
+            "forehead_length_real",
+            "forehead_width_real"
+          ]
+        },
+        {
+          "id": "real_qualitative",
+          "screen": "scroll_form",
+          "form_title": "Бальные оценки",
+          "field_ids": [
+            "musculature_real",
+            "musculature_real_desc",
+            "head_and_neck_real",
+            "head_and_neck_real_desc",
+            "chest_quality_real",
+            "chest_quality_real_desc",
+            "withers_back_loin_real",
+            "withers_back_loin_real_desc",
+            "croup_real",
+            "croup_real_desc",
+            "scrotum_real",
+            "scrotum_real_desc",
+            "ham_real",
+            "ham_real_desc",
+            "limbs_real",
+            "limbs_real_desc"
+          ]
+        },
+        {
+          "id": "photo_profile",
+          "screen": "scroll_form",
+          "form_title": "Профиль (оба бока)",
+          "field_ids": [
+            "photo_profile_guide",
+            "photo_profile_left",
+            "photo_profile_right"
+          ]
+        },
+        {
+          "id": "photo_top",
+          "screen": "scroll_form",
+          "form_title": "Вид сверху",
+          "field_ids": [
+            "photo_top_guide",
+            "photo_top"
+          ]
+        },
+        {
+          "id": "photo_rear_23",
+          "screen": "scroll_form",
+          "form_title": "2/3 сзади (оба бока)",
+          "field_ids": [
+            "photo_rear_23_guide",
+            "photo_rear_23_left",
+            "photo_rear_23_right"
+          ]
+        },
+        {
+          "id": "photo_front_23",
+          "screen": "scroll_form",
+          "form_title": "2/3 спереди (оба бока)",
+          "field_ids": [
+            "photo_front_23_guide",
+            "photo_front_23_left",
+            "photo_front_23_right"
+          ]
+        },
+        {
+          "id": "photo_front_legs",
+          "screen": "scroll_form",
+          "form_title": "Передние ноги",
+          "field_ids": [
+            "photo_front_legs_guide",
+            "photo_front_legs"
+          ]
+        },
+        {
+          "id": "photo_genitals",
+          "screen": "scroll_form",
+          "form_title": "Мошонка / вымя",
+          "field_ids": [
+            "photo_genitals_guide",
+            "photo_scrotum",
+            "photo_udder"
+          ]
+        },
+        {
+          "id": "photo_head",
+          "screen": "scroll_form",
+          "form_title": "Голова",
+          "field_ids": [
+            "photo_head_guide",
+            "photo_head_side",
+            "photo_head_top"
           ]
         },
         {
@@ -28,6 +146,560 @@
         }
       ]
     },
-    "ui": {}
+    "ui": {
+      "flow": {
+        "continue": {
+          "next": "Далее",
+          "to_review": "К проверке"
+        },
+        "ribbon": {
+          "pose_counter_sep": "·",
+          "review": "Проверка и отправка",
+          "scroll_form": "Шаг сбора",
+          "scroll_counter": "{cur} из {total}"
+        },
+        "camera_pose": {
+          "quality_dialog": {
+            "title": "Проверка качества кадра",
+            "use_anyway": "Всё равно использовать",
+            "retake": "Переснять"
+          },
+          "example_heading": "Пример ракурса",
+          "help_button": "Справка",
+          "example_asset_missing": "Изображение-пример не найдено в сборке",
+          "your_shots_heading": "Ваши кадры ({count})",
+          "empty_hint": "Добавьте кадры камерой или из галереи",
+          "add_more": "Добавить ещё",
+          "camera": "Камера",
+          "gallery": "Галерея",
+          "clear_all_poses": "Удалить все кадры этого ракурса",
+          "next": "Далее",
+          "to_review": "К проверке"
+        },
+        "review": {
+          "header_overline": "Финиш",
+          "header_title": "Проверка и отправка",
+          "header_subtitle": "Проверьте данные. Можно вернуться к любому шагу — введённые значения и снимки сохраняются.",
+          "scroll_block_title": "Шаг {n}: {id}",
+          "instruction_fallback": "Инструкция",
+          "edit": "Изменить",
+          "no_frames": "Нет кадров",
+          "submit": "Отправить данные",
+          "empty_value": "—"
+        },
+        "camera_meta": {
+          "fx_estimate": "fₓ≈{value} px",
+          "expand_hint": "Нажмите, чтобы развернуть",
+          "empty_notice": "Мета-параметры камеры появятся после съёмки поз.",
+          "tile_title": "Мета-параметры камеры",
+          "section_device": "Устройство",
+          "section_native": "Нативная камера (задняя)",
+          "json_section": "Полный JSON (копирование)",
+          "dash": "—",
+          "native_empty": "Нет данных с нативного API",
+          "pose_shot_title": "Ракурс {idx} — кадр {shot}",
+          "pose_derived_title": "Ракурс {idx} — оценки",
+          "label_fx_exif": "fx_px (EXIF focal × сенсор)",
+          "label_fx_35mm": "fx_px (35mm equiv)",
+          "label_fx_native": "fx_px (натив)",
+          "exif_heading": "Фрагмент EXIF",
+          "exif_more": "… ещё {n} полей"
+        }
+      }
+    },
+    "fields": [
+      {
+        "field_id": "scan_time",
+        "type": "datetime",
+        "title": "Время сбора",
+        "instructions": "Подставляется с устройства.",
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "field_id": "cow_name",
+        "type": "text_input",
+        "title": "Кличка",
+        "instructions": "Имя животного на площадке.",
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "field_id": "cow_gender",
+        "type": "text_input",
+        "title": "Пол",
+        "instructions": "Например: бык, корова, телка, бычок, телёнок.",
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "field_id": "cow_identifier",
+        "type": "text_input",
+        "title": "ID животного",
+        "instructions": "Если известен на момент сбора; можно оставить пустым.",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "measurements_skip_hint",
+        "type": "instruction",
+        "title": "",
+        "instructions": "## Замеры можно пропустить\n\nВсе поля на следующих шагах **необязательны** — данные можно внести позже в админке."
+      },
+      {
+        "field_id": "months",
+        "type": "text_input",
+        "title": "Возраст (месяцев)",
+        "instructions": "Целое число, 1–120",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "weight_real",
+        "type": "text_input",
+        "title": "Вес, кг",
+        "instructions": "Стандартное взвешивание",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "height_at_croup_real",
+        "type": "text_input",
+        "title": "Высота в крестце, см",
+        "instructions": "От наивысшей точки крестца до земли",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "height_at_withers_real",
+        "type": "text_input",
+        "title": "Высота в холке, см",
+        "instructions": "От земли до высшей точки холки",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "chest_depth_real",
+        "type": "text_input",
+        "title": "Глубина груди/туловища, см",
+        "instructions": "От холки до грудной кости",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "chest_width_behind_shoulders_real",
+        "type": "text_input",
+        "title": "Ширина груди за лопатками, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "width_at_hook_bones_real",
+        "type": "text_input",
+        "title": "Ширина в маклоках, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "width_at_pin_bones_real",
+        "type": "text_input",
+        "title": "Ширина в седалищных буграх, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "body_length_oblique_real",
+        "type": "text_input",
+        "title": "Косая длина туловища, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "rump_length_oblique_real",
+        "type": "text_input",
+        "title": "Косая (боковая) длина зада, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "chest_girth_real",
+        "type": "text_input",
+        "title": "Обхват груди за лопатками, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "pastern_girth_real",
+        "type": "text_input",
+        "title": "Обхват пясти, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "rump_half_girth_real",
+        "type": "text_input",
+        "title": "Полуохват зада, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "head_length_real",
+        "type": "text_input",
+        "title": "Длина головы, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "forehead_length_real",
+        "type": "text_input",
+        "title": "Длина лба, см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "forehead_width_real",
+        "type": "text_input",
+        "title": "Ширина лба (наибольшая), см",
+        "instructions": "Ручной замер, см или кг",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "musculature_real",
+        "type": "text_input",
+        "title": "Мускулатура (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "musculature_real_desc",
+        "type": "text_input",
+        "title": "Описание: мускулатура",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "head_and_neck_real",
+        "type": "text_input",
+        "title": "Голова и шея (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "head_and_neck_real_desc",
+        "type": "text_input",
+        "title": "Описание: голова и шея",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "chest_quality_real",
+        "type": "text_input",
+        "title": "Грудь (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "chest_quality_real_desc",
+        "type": "text_input",
+        "title": "Описание: грудь",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "withers_back_loin_real",
+        "type": "text_input",
+        "title": "Холка, спина, поясница (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "withers_back_loin_real_desc",
+        "type": "text_input",
+        "title": "Описание: холка, спина, поясница",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "croup_real",
+        "type": "text_input",
+        "title": "Крестец (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "croup_real_desc",
+        "type": "text_input",
+        "title": "Описание: крестец",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "scrotum_real",
+        "type": "text_input",
+        "title": "Мошонка (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "scrotum_real_desc",
+        "type": "text_input",
+        "title": "Описание: мошонка",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "ham_real",
+        "type": "text_input",
+        "title": "Окорока (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "ham_real_desc",
+        "type": "text_input",
+        "title": "Описание: окорока",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "limbs_real",
+        "type": "text_input",
+        "title": "Конечности (балл)",
+        "instructions": "От 1.0 до 5.0",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "limbs_real_desc",
+        "type": "text_input",
+        "title": "Описание: конечности",
+        "instructions": "По желанию",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_profile_guide",
+        "type": "instruction",
+        "title": "Инструкция: профиль",
+        "instructions": "## Профиль (левый и правый бок)\n\nСнимок, когда **голова животного примерно на уровне спины**.\nНужны **два кадра**: левый и правый профиль.\nЖивотное в полный рост, без обрезки конечностей."
+      },
+      {
+        "field_id": "photo_profile_left",
+        "type": "camera_photo",
+        "title": "Профиль — левый бок",
+        "instructions": "Один кадр левого профиля.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_profile_right",
+        "type": "camera_photo",
+        "title": "Профиль — правый бок",
+        "instructions": "Один кадр правого профиля.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_top_guide",
+        "type": "instruction",
+        "title": "Инструкция: сверху",
+        "instructions": "## Вид сверху\n\nДолжны быть видны **вся спина**, **маклоки** и **седалищные бугры**."
+      },
+      {
+        "field_id": "photo_top",
+        "type": "camera_photo",
+        "title": "Вид сверху",
+        "instructions": "Минимум один кадр.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_rear_23_guide",
+        "type": "instruction",
+        "title": "Инструкция: 2/3 сзади",
+        "instructions": "## 2/3 сзади (левый и правый)\n\nДля оценки **окороков**, **задних ног** и задних точек замера."
+      },
+      {
+        "field_id": "photo_rear_23_left",
+        "type": "camera_photo",
+        "title": "2/3 сзади — слева",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_rear_23_right",
+        "type": "camera_photo",
+        "title": "2/3 сзади — справа",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_front_23_guide",
+        "type": "instruction",
+        "title": "Инструкция: 2/3 спереди",
+        "instructions": "## 2/3 спереди (левый и правый)\n\nДля оценки **передних ног**, **груди** и передних точек замера."
+      },
+      {
+        "field_id": "photo_front_23_left",
+        "type": "camera_photo",
+        "title": "2/3 спереди — слева",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_front_23_right",
+        "type": "camera_photo",
+        "title": "2/3 спереди — справа",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_front_legs_guide",
+        "type": "instruction",
+        "title": "Инструкция: передние ноги",
+        "instructions": "## Передние ноги\n\nОтдельный кадр на **передние конечности**."
+      },
+      {
+        "field_id": "photo_front_legs",
+        "type": "camera_photo",
+        "title": "Передние ноги",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_genitals_guide",
+        "type": "instruction",
+        "title": "Инструкция: половые признаки",
+        "instructions": "## Мошонка или вымя\n\nЗависит от пола (см. шаг идентификации):\n- **Бык** — мошонка;\n- **Корова / телка** — вымя.\n\nЗагрузите нужную категорию; вторую можно пропустить."
+      },
+      {
+        "field_id": "photo_scrotum",
+        "type": "camera_photo",
+        "title": "Мошонка (бык)",
+        "instructions": "Только для быков.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_udder",
+        "type": "camera_photo",
+        "title": "Вымя (корова, телка)",
+        "instructions": "Только для коров и телок.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_head_guide",
+        "type": "instruction",
+        "title": "Инструкция: голова",
+        "instructions": "## Голова\n\nКадры **сбоку** и **сверху**."
+      },
+      {
+        "field_id": "photo_head_side",
+        "type": "camera_photo",
+        "title": "Голова — сбоку",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "field_id": "photo_head_top",
+        "type": "camera_photo",
+        "title": "Голова — сверху",
+        "instructions": "Можно пропустить и добавить снимки позже.",
+        "multiple": true,
+        "validation": {
+          "required": false
+        }
+      }
+    ]
   }
 }
